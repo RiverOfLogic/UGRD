@@ -1,0 +1,206 @@
+run_name: table_i_5seed
+evaluation:
+  mode: overall
+output_dir: outputs/final_method_standard
+cache_dir: outputs/final_method_standard_cache
+parameter_table: extensions/final_method_standard/configs/cells.csv
+data_root: dataset
+teacher_path: models/chronos2
+datasets:
+- ETTh1
+- ETTh2
+- ETTm1
+- ETTm2
+- Weather
+- ECL
+horizons:
+- 48
+- 96
+- 192
+teacher_context: 512
+train_windows: 8192
+teacher_micro_batch: 1
+keep_raw_reg: false
+min_free_disk_gib: 2.0
+model:
+  architecture: lmpnet
+  seq_len: 96
+  d_model: 512
+  e_layers: 2
+  moving_avg: 25
+  rev_in: 1
+  dropout: 0.1
+  patch_length: 16
+train:
+  epochs: 100
+  early_stopping_patience: 30
+  weight_decay: 0.0001
+  lradj: constant
+  cpu_threads: 2
+  num_workers: 0
+  optimizer_foreach: false
+  log_interval: 0
+grid:
+  search_seed: 2026
+  confirmation_seeds:
+  - 2026
+  - 2027
+  - 2028
+  - 2029
+  - 2030
+resources:
+  gpus: auto
+  max_parallel: 2
+  max_per_gpu: 2
+  reserve_gib: 2.0
+  profile_budget_gib: 8.0
+  prepare_budget_gib: 8.0
+  memory_safety_factor: 1.3
+  context_allowance_gib: 0.5
+  poll_seconds: 2.0
+  heartbeat_seconds: 2.0
+fixed_cells:
+  ETTh1_h48:
+    moving_avg: 65
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.05
+      qbd: 1.027641906619567
+      increment: 0.2710956223386947
+  ETTh1_h96:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.2
+      qbd: 1.0848496916430073
+      increment: 0.1652243134786681
+  ETTh1_h192:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.05
+      qbd: 1.147886850770963
+      increment: 0.27631681041364603
+  ETTh2_h48:
+    moving_avg: 13
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.05
+      qbd: 0.88
+      increment: 0.15
+  ETTh2_h96:
+    moving_avg: 65
+    batch: 64
+    learning_rate: 0.0002
+    weights:
+      reg: 0.05
+      qbd: 0.81
+      increment: 0.08
+  ETTh2_h192:
+    moving_avg: 65
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.1
+      qbd: 1.03
+      increment: 0.08
+  ETTm1_h48:
+    moving_avg: 97
+    batch: 128
+    learning_rate: 0.0002
+    weights:
+      reg: 0.05
+      qbd: 0.85
+      increment: 0.1
+  ETTm1_h96:
+    moving_avg: 49
+    batch: 128
+    learning_rate: 0.0002
+    weights:
+      reg: 0.2
+      qbd: 0.84
+      increment: 0.13
+  ETTm1_h192:
+    moving_avg: 97
+    batch: 128
+    learning_rate: 0.0002
+    weights:
+      reg: 0.5
+      qbd: 0.92
+      increment: 0.19
+  ETTm2_h48:
+    moving_avg: 97
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.05
+      qbd: 0.68
+      increment: 0.05
+  ETTm2_h96:
+    moving_avg: 97
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.2
+      qbd: 0.71
+      increment: 0.06
+  ETTm2_h192:
+    moving_avg: 97
+    batch: 32
+    learning_rate: 0.0002
+    weights:
+      reg: 0.2
+      qbd: 0.7
+      increment: 0.07
+  Weather_h48:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.2
+      qbd: 1.1332815217106835
+      increment: 0.0
+  Weather_h96:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.1
+      qbd: 1.1631939432221057
+      increment: 0.1750477253076761
+  Weather_h192:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.1
+      qbd: 1.0893123734657648
+      increment: 0.188094862098106
+  ECL_h48:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.1
+      qbd: 1.0849562472893084
+      increment: 0.4057674730785185
+  ECL_h96:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.1
+      qbd: 1.0896192233742448
+      increment: 0.5262992150162417
+  ECL_h192:
+    moving_avg: 25
+    batch: 32
+    learning_rate: 0.0001
+    weights:
+      reg: 0.05
+      qbd: 1.0752377803384867
+      increment: 0.5376661297389232
